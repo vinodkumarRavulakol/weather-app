@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import {
     Box,
@@ -6,10 +6,10 @@ import {
     Grid,
     CardContent,
     Typography,
-    Button,
     Modal,
-    IconButton
+    InputAdornment
 } from '@mui/material';
+import SearchIcon from "@mui/icons-material/Search";
 import ForecastWeather from './components/ForecastWeather';
 import CurrentWeather from './components/CurrentWeather';
 import { getCurrentWeather, getForecast } from './utils/APIS';
@@ -37,11 +37,8 @@ export default function App() {
     const [errorMsg, setErrorMsg] = useState(null);
     const [open, setOpen] = React.useState(false);
 
-    const handleClose = () => setOpen(false);
-    const errMsg = "Please enable location access in browser"
-
-    const weatherList = async (city = '') => {
-        await getCurrentWeather(city, lat, long)
+    const weatherList = useCallback((city = '') => {
+        getCurrentWeather(city, lat, long)
             .then(weather => {
                 const weatherData = mapWeatherData(weather)
                 setWeatherData(weatherData);
@@ -52,21 +49,21 @@ export default function App() {
                 setOpen(true);
                 setCityName('');
             });
-    }
+    }, [lat, long]);
 
-    const forecastList = async (city = '') => {
-        await getForecast(city, lat, long)
+    const forecastList = useCallback((city = '') => {
+        getForecast(city, lat, long)
             .then(forecastWeather => {
                 const forecastData = forecastWeather?.list.map(mapWeatherData);
                 setForecastData(forecastData);
                 setCityName('');
             })
             .catch(err => {
-                err.message === 'Failed to fetch' ? setErrorMsg(errMsg) : setErrorMsg(err.message);
+                setErrorMsg(err.message);
                 setOpen(true);
                 setCityName('');
             });
-    }
+    }, [lat, long]);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -74,16 +71,21 @@ export default function App() {
             setLong(position.coords.longitude);
         });
         if (lat && long) {
-        weatherList();
-        forecastList();
+            weatherList();
+            forecastList();
         }
 
-    }, [lat, long])
+    }, [lat, long, weatherList, forecastList])
 
-    const handleSearch = () => {
-        weatherList(cityName);
-        forecastList(cityName);
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            weatherList(cityName);
+            forecastList(cityName);
+        }
     }
+
+    const handleClose = () => setOpen(false);
 
     return (
         <>
@@ -105,6 +107,7 @@ export default function App() {
                             variant="standard"
                             value={cityName}
                             onChange={(e) => setCityName(e.target.value)}
+                            onKeyDown={handleKeyDown}
                             sx={{
                                 input: {
                                     color: "#fff",
@@ -112,15 +115,14 @@ export default function App() {
                                 },
                                 label: { color: "#fff" }
                             }}
-                        />
-                        <Button
-                            variant="contained"
-                            align="center"
-                            onClick={handleSearch}
-                            sx={{
-                                background: "none"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                )
                             }}
-                        >Search</Button>
+                        />
                     </Box>
                     <Box
                         justify="center"
@@ -147,7 +149,7 @@ export default function App() {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                sx={{display: "flex"}}
+                sx={{ display: "flex" }}
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
