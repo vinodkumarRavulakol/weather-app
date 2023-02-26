@@ -1,0 +1,24 @@
+
+.main {
+  background-image: url('assets/images/weather-img.jpg');
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #fff;
+}
+
+
+.listItem {
+  display: inline-table !important;
+  margin: 0 2px;
+}
+
+.forecast-icon {
+  margin-top: 2px;
+}
+
+.grid-item {
+  padding-left: 0 !important;
+}
