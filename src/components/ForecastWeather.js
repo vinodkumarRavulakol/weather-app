@@ -35,33 +35,27 @@ const ForecastWeather = ({ forecastData }) => {
 					const day = days[new Date().getDay()] === weekDay ? 'Today' : weekDay;
 					const windSpeed = 3.6 * item.wind;
 					return (
-						<ListItem className="listItem" key={item.dt_txt}>
-							<Paper align="center" elevation={10}
-								sx={{
-									background: "none",
-									color: "#fff",
-									padding: "8px",
-									width: "200px"
-								}}>
+						<ListItem className="list" key={item.dt_txt}>
+							<Paper align="center" elevation={10} className="paper">
 								<Typography variant="h6">
 									{day} {time}
 								</Typography>
-								<ListItem style={{ display: "flex", justifyContent: "space-between" }}>
+								<ListItem className="listitem">
 									<p>{item.description}</p>
-									<div style={{ display: "inline-flex" }}>
-										<img class="forecast-icon" src={`http://openweathermap.org/img/w/${iconId}.png`} alt="weather icon" />
+									<div>
+										<img className="forecast-icon" src={`http://openweathermap.org/img/w/${iconId}.png`} alt="weather icon" />
 
 										<p>{Math.round(item.temp)}&deg;</p></div>
 								</ListItem>
 
-								<ListItem style={{ display: "flex", justifyContent: "space-between" }}>
-									<div style={{ display: "inline-flex" }}><ArrowUpwardOutlinedIcon />{Math.round(item.max)}&deg;</div>
-									<div style={{ display: "inline-flex" }}><ArrowDownwardOutlinedIcon />{Math.round(item.min)}&deg;</div>
+								<ListItem className="listitem">
+									<div><ArrowUpwardOutlinedIcon />{Math.round(item.max)}&deg;</div>
+									<div><ArrowDownwardOutlinedIcon />{Math.round(item.min)}&deg;</div>
 								</ListItem>
 
-								<ListItem style={{ display: "flex", justifyContent: "space-between" }}>
-									<div style={{ display: "inline-flex" }}><InvertColorsOutlinedIcon />{item.humidity}%</div>
-									<div style={{ display: "inline-flex" }}><AirIcon />{Math.round(windSpeed)} km/h</div>
+								<ListItem className="listitem">
+									<div><InvertColorsOutlinedIcon />{item.humidity}%</div>
+									<div><AirIcon />{Math.round(windSpeed)} km/h</div>
 								</ListItem>
 
 							</Paper>

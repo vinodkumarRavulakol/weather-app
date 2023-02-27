@@ -1,4 +1,3 @@
-
 .main {
   background-image: url('assets/images/weather-img.jpg');
   width: 100%;
@@ -10,9 +9,18 @@
 }
 
 
-.listItem {
+.list {
   display: inline-table !important;
   margin: 0 2px;
+}
+
+.listitem {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.listitem > div {
+  display: inline-flex !important;
 }
 
 .forecast-icon {
@@ -21,4 +29,24 @@
 
 .grid-item {
   padding-left: 0 !important;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.divider {
+  height: 100px;
+  margin: 0 12px !important;
+  background-color: #fff;
+}
+
+.paper {
+  background: none !important;
+  color: #fff !important;
+  padding: 8px !important;
+  width: 200px !important;
 }

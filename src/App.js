@@ -93,11 +93,10 @@ export default function App() {
                 <div className="main">
                     <Box
                         component="form"
+                        className="section"
                         sx={{
                             '& > :not(style)': { m: 1, width: '25ch' },
                             p: "1rem 0",
-                            display: "flex",
-                            justifyContent: "center"
                         }}
                         noValidate
                         autoComplete="off"
@@ -147,8 +146,7 @@ export default function App() {
             {open && (<Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                aria-labelledby="modal"
                 sx={{ display: "flex" }}
             >
                 <Box sx={style}>

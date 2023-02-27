@@ -45,30 +45,19 @@ const CurrentWeather = ({ weatherData }) => {
 			variant="outlined">
 			<Grid container spacing={2}>
 				<Grid item xs={8}>
-					<Typography variant="h4"
-						sx={{
-							display: "flex",
-							justifyContent: "center",
-							whiteSpace: "nowrap"
-						}}>
+					<Typography className="section" variant="h4">
 						{city}{','} {country}
 					</Typography>
 
 					<CardContent
 						align="center"
-						sx={{
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center"
-						}}>
+						className="section">
 						<Typography>
 							<img className='w_icon' src={`http://openweathermap.org/img/w/${icon}.png`} alt="weather icon" />
 
 							<Typography variant="h6"
-								sx={{
-									display: "flex",
-									justifyContent: "center",
-								}}>
+								className="section"
+							>
 								{description}
 							</Typography>
 							{time}
@@ -76,11 +65,7 @@ const CurrentWeather = ({ weatherData }) => {
 						<Divider
 							orientation="vertical"
 							flexItem
-							sx={{
-								height: "100px",
-								margin: "0 12px",
-								backgroundColor: "#fff"
-							}}
+							className="divider"
 						/>
 						<Typography>
 							<Typography variant='h1'>
