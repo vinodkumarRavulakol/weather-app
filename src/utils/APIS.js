@@ -1,6 +1,6 @@
 
 const API_URL = 'https://api.openweathermap.org/data/2.5';
-const API_KEY = '3144cc6c87fe7ca6a4f934ecdf0634dd';
+const API_KEY = {/* your api key*/}
 
 export function getCurrentWeather(cityName, lat, lon) {
     return fetch(
